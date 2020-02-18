@@ -16,30 +16,16 @@
 AFlyTestPawn::AFlyTestPawn()
 {
 	// Structure to hold one-time initialization
-	struct FConstructorStatics
-	{
-		ConstructorHelpers::FObjectFinderOptional<USkeletalMesh> PlaneMesh;
-		FConstructorStatics()
-			: PlaneMesh(TEXT("/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow")) //Where the SK lives
-		{
-		}
-	};
-	static FConstructorStatics ConstructorStatics;
 
 	// Create static mesh component
 	FakeRoot = CreateDefaultSubobject<USceneComponent>(TEXT("FakeRoot")); //Needs fake root so Crow gets a transform
 	RootComponent = FakeRoot;
 
-	FlyingPawnComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlaneMesh0"));
-	//FlyingPawnComp->SetSkeletalMesh(ConstructorStatics.PlaneMesh.Get());	// Set static mesh
+	FlyingPawnComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FlyingMesh0"));
 
 	FlyingPawnComp->SetWorldRotation(FRotator(0, -90, 0)); //Rotate Crow to face forward
 	FlyingPawnComp->SetupAttachment(FakeRoot);
 	
-	static ConstructorHelpers::FObjectFinder<UAnimBlueprint> FoundAnimBP(TEXT("/Game/Crow.Crow")); //Find Animation BP
-	UAnimBlueprintGeneratedClass* PreviewBP = FoundAnimBP.Object->GetAnimBlueprintGeneratedClass();
-	FlyingPawnComp->SetAnimInstanceClass(PreviewBP); //Link to SK Component
-
 	// Create a spring arm component
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm0"));
 	SpringArm->SetupAttachment(FakeRoot);	// Attach SpringArm to RootComponent
