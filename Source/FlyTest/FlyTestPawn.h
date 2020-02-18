@@ -10,9 +10,9 @@ class AFlyTestPawn : public APawn
 {
 	GENERATED_BODY()
 
-	/** StaticMesh component that will be the visuals for our flying pawn */
-	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class USkeletalMeshComponent* CrowMesh;
+	/** StaticMesh component that will be the visuals for our flying crow */
+	UPROPERTY(Category = Mesh, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class USkeletalMeshComponent* FlyingPawnComp;
 
 	UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* FakeRoot;
@@ -79,7 +79,7 @@ private:
 
 public:
 	/** Returns PlaneMesh subobject **/
-	FORCEINLINE class USkeletalMeshComponent* GetPlaneMesh() const { return CrowMesh; }
+	FORCEINLINE class USkeletalMeshComponent* GetPlaneMesh() const { return FlyingPawnComp; }
 	/** Returns SpringArm subobject **/
 	FORCEINLINE class USpringArmComponent* GetSpringArm() const { return SpringArm; }
 	/** Returns Camera subobject **/

@@ -30,15 +30,15 @@ AFlyTestPawn::AFlyTestPawn()
 	FakeRoot = CreateDefaultSubobject<USceneComponent>(TEXT("FakeRoot")); //Needs fake root so Crow gets a transform
 	RootComponent = FakeRoot;
 
-	CrowMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlaneMesh0"));
-	CrowMesh->SetSkeletalMesh(ConstructorStatics.PlaneMesh.Get());	// Set static mesh
+	FlyingPawnComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlaneMesh0"));
+	//FlyingPawnComp->SetSkeletalMesh(ConstructorStatics.PlaneMesh.Get());	// Set static mesh
 
-	CrowMesh->SetWorldRotation(FRotator(0, -90, 0)); //Rotate Crow to face forward
-	CrowMesh->SetupAttachment(FakeRoot);
+	FlyingPawnComp->SetWorldRotation(FRotator(0, -90, 0)); //Rotate Crow to face forward
+	FlyingPawnComp->SetupAttachment(FakeRoot);
 	
 	static ConstructorHelpers::FObjectFinder<UAnimBlueprint> FoundAnimBP(TEXT("/Game/Crow.Crow")); //Find Animation BP
 	UAnimBlueprintGeneratedClass* PreviewBP = FoundAnimBP.Object->GetAnimBlueprintGeneratedClass();
-	CrowMesh->SetAnimInstanceClass(PreviewBP); //Link to SK Component
+	FlyingPawnComp->SetAnimInstanceClass(PreviewBP); //Link to SK Component
 
 	// Create a spring arm component
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm0"));
